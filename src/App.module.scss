@@ -1,0 +1,21 @@
+.Container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  min-height: 100vh;
+  width: 100%;
+
+  main,
+  header,
+  footer {
+    width: 100%;
+    min-height: 4rem;
+  }
+
+  main {
+    flex: 1;
+    background-color: pink;
+    width: 100%;
+  }
+}
