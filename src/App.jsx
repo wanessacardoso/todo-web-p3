@@ -1,26 +1,27 @@
+import { useState } from "react";
 import TaskList from "./components/TaskList";
 
 import styles from "./App.module.scss";
-
-const tasks = [
-  { id: 1, name: "Fazer o almoço", completed: true },
-  { id: 2, name: "Fazer a feira", completed: false },
-  { id: 3, name: "trabalhar", completed: false },
-  { id: 4, name: "Estudar", completed: false },
-];
+import { TaskForm } from "./components/TaskForm";
 
 function App() {
+  const [tasks, setTasks] = useState([]);
+
+  const addTask = (task) => {
+    const tasksCopy = [...tasks];
+    tasksCopy.push(task);
+    setTasks(tasksCopy);
+  };
+
   return (
     <div className={styles.Container}>
       <header>
         <h1>My ToDo App</h1>
       </header>
       <main>
-        <form>
-          <input type="text" />
-          <button type="submit">Criar</button>
-        </form>
+        <TaskForm submitTask={addTask} />
         <TaskList tasks={tasks} />
+        <section style={{ padding: "32px" }}></section>
       </main>
       <footer>Criado pela turma do 4 semestre</footer>
     </div>

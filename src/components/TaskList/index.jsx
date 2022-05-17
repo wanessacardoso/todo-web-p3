@@ -5,7 +5,11 @@ const TaskList = ({ tasks }) => {
   return (
     <ul className={styles.Container}>
       {tasks.map((task) => (
-        <TaskItem key={task.id} name={task.name} completed={task.completed} />
+        <TaskItem
+          key={task.id}
+          name={task.description}
+          completed={task.completed}
+        />
       ))}
     </ul>
   );
