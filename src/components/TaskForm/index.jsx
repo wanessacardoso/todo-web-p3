@@ -9,7 +9,7 @@ export const TaskForm = ({ submitTask }) => {
 
     const { current: input } = inputRef;
 
-    if (!input || input.value.trim().legnth == 0) {
+    if (!input || input.value.trim().length === 0) {
       return;
     }
 
@@ -20,6 +20,7 @@ export const TaskForm = ({ submitTask }) => {
     };
 
     submitTask(task);
+    input.value = "";
   };
 
   return (

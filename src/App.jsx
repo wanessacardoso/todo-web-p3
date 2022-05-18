@@ -3,6 +3,8 @@ import TaskList from "./components/TaskList";
 
 import styles from "./App.module.scss";
 import { TaskForm } from "./components/TaskForm";
+import { Header } from "./components/Header";
+import { Footer } from "./components/Footer";
 
 function App() {
   const [tasks, setTasks] = useState([]);
@@ -35,9 +37,7 @@ function App() {
 
   return (
     <div className={styles.Container}>
-      <header>
-        <h1>My ToDo App</h1>
-      </header>
+      <Header title="My Todo App" />
       <main>
         <TaskForm submitTask={addTask} />
         <TaskList
@@ -47,7 +47,7 @@ function App() {
         />
         <section style={{ padding: "32px" }}></section>
       </main>
-      <footer>Criado pela turma do 4 semestre</footer>
+      <Footer />
     </div>
   );
 }

@@ -12,7 +12,8 @@
     width: auto;
   }
 
-  span {
+  span,
+  input[type="text"] {
     flex: 1;
   }
 
