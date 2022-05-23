@@ -14,7 +14,6 @@ export const TaskForm = ({ submitTask }) => {
     }
 
     const task = {
-      id: Date.now(),
       description: input.value.trim(),
       completed: false,
     };

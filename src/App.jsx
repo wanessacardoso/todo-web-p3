@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import TaskList from "./components/TaskList";
 
 import styles from "./App.module.scss";
@@ -7,32 +7,75 @@ import { Header } from "./components/Header";
 import { Footer } from "./components/Footer";
 
 function App() {
+  const BASEURL = `http://localhost:3001`;
   const [tasks, setTasks] = useState([]);
 
-  const addTask = (task) => {
-    const tasksCopy = [...tasks];
-    tasksCopy.push(task);
-    setTasks(tasksCopy);
+  const fetchTask = async () => {
+    try {
+      const response = await fetch(`${BASEURL}/tasks`);
+      const data = await response.json();
+      setTasks(data);
+    } catch (error) {}
   };
 
-  const updateTask = (task) => {
+  useEffect(() => {
+    fetchTask();
+  }, []);
+
+  const addTask = async (task) => {
+    const tasksCopy = [...tasks];
+    tasksCopy.push(task);
+    try {
+      console.log(task);
+      await fetch(`${BASEURL}/tasks`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(task),
+      });
+      setTasks(tasksCopy);
+    } catch (error) {
+      alert("não foi possivel adicionar a tarefa");
+    }
+  };
+
+  const updateTask = async (task) => {
     const tasksCopy = [...tasks];
     const index = tasksCopy.findIndex((t) => t.id === task.id);
     if (index === -1) {
       return;
     }
-    Object.assign(tasksCopy[index], task);
-    setTasks(tasksCopy);
+    try {
+      await fetch(`${BASEURL}/tasks/${task.id}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(task),
+      });
+      Object.assign(tasksCopy[index], task);
+      setTasks(tasksCopy);
+    } catch (error) {
+      alert("não foi possivel atualizar a tarefa");
+    }
   };
 
-  const removeTask = (id) => {
+  const removeTask = async (id) => {
     const tasksCopy = [...tasks];
     const index = tasksCopy.findIndex((t) => t.id === id);
     if (index === -1) {
       return;
     }
-    tasksCopy.splice(index, 1);
-    setTasks(tasksCopy);
+    try {
+      await fetch(`${BASEURL}/tasks/${id}`, {
+        method: "DELETE",
+      });
+      tasksCopy.splice(index, 1);
+      setTasks(tasksCopy);
+    } catch (error) {
+      alert("não foi possivel remover a tarefa");
+    }
   };
 
   return (

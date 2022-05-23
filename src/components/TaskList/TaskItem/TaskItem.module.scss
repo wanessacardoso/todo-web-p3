@@ -17,6 +17,10 @@
     flex: 1;
   }
 
+  .marked {
+    text-decoration: line-through;
+  }
+
   button {
     border-radius: 50%;
     width: 32px;

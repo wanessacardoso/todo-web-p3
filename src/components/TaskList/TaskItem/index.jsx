@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useState } from "react";
 import styles from "./TaskItem.module.scss";
 
 const TaskItem = ({ task, updateTask, removeTask }) => {
@@ -22,6 +22,27 @@ const TaskItem = ({ task, updateTask, removeTask }) => {
     setEdit(false);
   };
 
+  const renderDescription = () => {
+    if (edit) {
+      return (
+        <>
+          <input
+            type="text"
+            value={name}
+            onChange={(ev) => setName(ev.target.value)}
+          />
+          <button onClick={handleSave}>💾</button>
+        </>
+      );
+    }
+    return (
+      <>
+        <span className={completed ? styles.marked : ""}>{description}</span>
+        <button onClick={() => setEdit(true)}>✒️</button>
+      </>
+    );
+  };
+
   return (
     <li className={styles.Item}>
       <input
@@ -30,21 +51,7 @@ const TaskItem = ({ task, updateTask, removeTask }) => {
         checked={completed}
         onChange={handleCheckboxChange}
       />
-      {edit ? (
-        <input
-          type="text"
-          value={name}
-          onChange={(ev) => setName(ev.target.value)}
-        />
-      ) : (
-        <span>{description}</span>
-      )}
-      {edit ? (
-        <button onClick={handleSave}>💾</button>
-      ) : (
-        <button onClick={() => setEdit(true)}>✒️</button>
-      )}
-
+      {renderDescription()}
       <button onClick={handleRemove}>🗑️</button>
     </li>
   );
