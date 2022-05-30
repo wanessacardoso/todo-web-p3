@@ -1,8 +1,12 @@
-import Home from "./pages/Home";
-import SignIn from "./pages/SignIn";
+import { BrowserRouter } from "react-router-dom";
+import Pages from "./pages";
 
 function App() {
-  return <SignIn />;
+  return (
+    <BrowserRouter>
+      <Pages />
+    </BrowserRouter>
+  );
 }
 
 export default App;
