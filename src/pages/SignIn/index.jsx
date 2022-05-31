@@ -1,38 +1,47 @@
-import { useRef } from "react";
-import { Link } from "react-router-dom";
+import { useContext, useRef } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import Template from "../../containers/Template";
+import { AuthContext, AuthProvider } from "../../providers/AuthProvider";
 
 import styles from "./SignIn.module.scss";
 
 const SignIn = () => {
-  const usernameInputRef = useRef();
+  const { signIn } = useContext(AuthContext);
+  const navigate = useNavigate();
+
+  const emailInputRef = useRef();
   const passwordInputRef = useRef();
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    if (!usernameInputRef.current || !passwordInputRef.current) {
+    if (!emailInputRef.current || !passwordInputRef.current) {
       return;
     }
-    const username = usernameInputRef.current.value.trim();
+    const email = emailInputRef.current.value.trim();
     const password = passwordInputRef.current.value.trim();
 
-    if (!username || !password) {
+    if (!email || !password) {
       return;
     }
+    try {
+      await signIn({ email, password });
+    } catch (error) {
+      alert(" Login ou senha inválidos");
+    }
 
-    alert(`username: ${username} password: ${password}`);
+    navigate("/home");
   };
 
   return (
     <Template title="Login">
       <form className={styles.Form} onSubmit={handleSubmit}>
-        <label htmlFor="username">Nome de Usuário</label>
+        <label htmlFor="email">E-mail de Usuário</label>
         <input
-          type="text"
-          id="username"
-          aria-describedby="username"
-          placeholder="Digite seu usuário"
-          ref={usernameInputRef}
+          type="email"
+          id="email"
+          aria-describedby="email"
+          placeholder="Digite seu email"
+          ref={emailInputRef}
         />
         <label htmlFor="Password">Senha</label>
         <input

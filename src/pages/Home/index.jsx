@@ -1,11 +1,14 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { TaskForm } from "../../components/TaskForm";
 import TaskList from "../../components/TaskList";
 import Template from "../../containers/Template";
+import { AuthContext } from "../../providers/AuthProvider";
 import TaskService from "../../services/task.service";
 
 const Home = () => {
   const [tasks, setTasks] = useState([]);
+
+  const { user } = useContext(AuthContext);
 
   const fetchTask = async () => {
     try {
@@ -31,7 +34,7 @@ const Home = () => {
 
   const updateTask = async (task) => {
     const tasksCopy = [...tasks];
-    const index = tasksCopy.findIndex((t) => t.id === task.id);
+    const index = tasksCopy.findIndex((t) => t._id === task._id);
     if (index === -1) {
       return;
     }
@@ -46,7 +49,7 @@ const Home = () => {
 
   const removeTask = async (id) => {
     const tasksCopy = [...tasks];
-    const index = tasksCopy.findIndex((t) => t.id === id);
+    const index = tasksCopy.findIndex((t) => t._id === id);
     if (index === -1) {
       return;
     }
@@ -62,6 +65,7 @@ const Home = () => {
   return (
     <Template title="My Todo ASpp">
       <TaskForm submitTask={addTask} />
+      {user.name}
       <TaskList tasks={tasks} updateTask={updateTask} removeTask={removeTask} />
       <section style={{ padding: "32px" }}></section>
     </Template>

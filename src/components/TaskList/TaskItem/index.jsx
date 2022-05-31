@@ -2,7 +2,7 @@ import { useState } from "react";
 import styles from "./TaskItem.module.scss";
 
 const TaskItem = ({ task, updateTask, removeTask }) => {
-  const { id, description, completed } = task;
+  const { _id, description, completed } = task;
   const [name, setName] = useState(description);
 
   const [edit, setEdit] = useState(false);
@@ -13,7 +13,7 @@ const TaskItem = ({ task, updateTask, removeTask }) => {
   };
 
   const handleRemove = () => {
-    removeTask(id);
+    removeTask(_id);
   };
 
   const handleSave = () => {
@@ -47,7 +47,7 @@ const TaskItem = ({ task, updateTask, removeTask }) => {
     <li className={styles.Item}>
       <input
         type="checkbox"
-        name="tarefa1"
+        name={`task-${_id}`}
         checked={completed}
         onChange={handleCheckboxChange}
       />

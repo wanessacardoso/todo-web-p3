@@ -6,7 +6,7 @@ const TaskList = ({ tasks, updateTask, removeTask }) => {
     <ul className={styles.Container}>
       {tasks.map((task) => (
         <TaskItem
-          key={task.id}
+          key={task._id}
           task={task}
           updateTask={updateTask}
           removeTask={removeTask}

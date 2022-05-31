@@ -8,8 +8,8 @@ const Pages = () => {
   return (
     <Routes path="/">
       <Route index element={<SignIn />} />
-      <Route path="/home" element={<Home />} />
       <Route path="/cadastro" element={<SignUp />} />
+      <Route path="/home" element={<Home />} />
     </Routes>
   );
 };

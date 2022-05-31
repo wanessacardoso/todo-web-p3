@@ -23,14 +23,17 @@ export default class TaskService {
 
   static async update(task) {
     try {
-      await api.put(`tasks/${task.id}`, task);
+      const { _id, description, completed } = task
+      await api.put(`tasks/${_id}`, {
+        description,
+        completed
+      });
     } catch (error) {
       throw new Error(error);
     }
   }
 
   static async delete(id) {
-
     try {
       await api.delete(`tasks/${id}`);
     } catch (error) {
