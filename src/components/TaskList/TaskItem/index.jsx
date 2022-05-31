@@ -1,7 +1,9 @@
 import { useState } from "react";
+import { useTasks } from "../../../hooks/useTasks";
 import styles from "./TaskItem.module.scss";
 
-const TaskItem = ({ task, updateTask, removeTask }) => {
+const TaskItem = ({ task }) => {
+  const { removeTask, updateTask } = useTasks();
   const { _id, description, completed } = task;
   const [name, setName] = useState(description);
 

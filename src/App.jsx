@@ -1,14 +1,13 @@
 import { BrowserRouter } from "react-router-dom";
 import Pages from "./pages";
-import { AuthProvider } from "./providers/AuthProvider";
-
+import { AppProvider } from "./providers";
 function App() {
   return (
-    <AuthProvider>
+    <AppProvider>
       <BrowserRouter>
         <Pages />
       </BrowserRouter>
-    </AuthProvider>
+    </AppProvider>
   );
 }
 

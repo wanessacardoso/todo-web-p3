@@ -1,13 +1,19 @@
-import { useContext, useRef } from "react";
+import { useEffect, useRef } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Template from "../../containers/Template";
-import { AuthContext, AuthProvider } from "../../providers/AuthProvider";
+import { useAuth } from "../../hooks/useAuth";
 
 import styles from "./SignIn.module.scss";
 
 const SignIn = () => {
-  const { signIn } = useContext(AuthContext);
+  const { signIn, isAuthenticated } = useAuth();
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (isAuthenticated()) {
+      navigate("/home");
+    }
+  }, [isAuthenticated, navigate]);
 
   const emailInputRef = useRef();
   const passwordInputRef = useRef();

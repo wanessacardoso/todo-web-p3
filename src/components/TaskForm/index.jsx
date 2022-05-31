@@ -1,7 +1,10 @@
-import { useRef } from "react";
+import { useContext, useRef } from "react";
+import { TasksContext } from "../../providers/TaskProvider";
 import styles from "./TaskForm.module.scss";
 
-export const TaskForm = ({ submitTask }) => {
+export const TaskForm = () => {
+  const { addTask } = useContext(TasksContext);
+
   const inputRef = useRef();
 
   const handleSubmit = (event) => {
@@ -18,7 +21,7 @@ export const TaskForm = ({ submitTask }) => {
       completed: false,
     };
 
-    submitTask(task);
+    addTask(task);
     input.value = "";
   };
 

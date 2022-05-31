@@ -41,7 +41,9 @@ const AuthProvider = ({ children }) => {
     }
   };
 
-  const getAuthToken = () => {};
+  const isAuthenticated = () => {
+    return data.token ? true : false;
+  };
 
   return (
     <AuthContext.Provider
@@ -49,7 +51,7 @@ const AuthProvider = ({ children }) => {
         user: data.user,
         signIn,
         signOut,
-        getAuthToken,
+        isAuthenticated,
       }}
     >
       {children}
