@@ -1,10 +1,11 @@
 import { createContext, useState } from "react";
-
-import api from "../services/api";
+import { useAxios } from "../hooks/useAxios";
 
 const AuthContext = createContext({});
 
 const AuthProvider = ({ children }) => {
+  const api = useAxios();
+
   const [data, setData] = useState(() => {
     const user = localStorage.getItem("@taskapp:user");
     const token = localStorage.getItem("@taskapp:token");
@@ -21,7 +22,7 @@ const AuthProvider = ({ children }) => {
       console.log(data);
       localStorage.setItem("@taskapp:user", user);
       localStorage.setItem("@taskapp:token", token);
-      api.defaults.headers.Authorization = `Bearer ${token}`;
+      api.defaults.headers.Authorization = token;
       setData({ user, token });
     } catch (error) {
       console.log(error);

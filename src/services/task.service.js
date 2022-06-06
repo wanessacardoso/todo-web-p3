@@ -1,30 +1,31 @@
-import api from './api'
-
-
 export default class TaskService {
 
-  static async getAll() {
+  constructor(axiosIntance) {
+    this.api = axiosIntance
+  }
+
+  async getAll() {
     try {
-      const { data } = await api.get('tasks');
+      const { data } = await this.api.get('tasks');
       return data;
     } catch (error) {
       throw new Error(error);
     }
   }
 
-  static async add(task) {
+  async add(task) {
     try {
-      const { data } = await api.post('tasks', task);
+      const { data } = await this.api.post('tasks', task);
       return data
     } catch (error) {
       throw new Error(error);
     }
   }
 
-  static async update(task) {
+  async update(task) {
     try {
       const { _id, description, completed } = task
-      await api.put(`tasks/${_id}`, {
+      await this.api.put(`tasks/${_id}`, {
         description,
         completed
       });
@@ -33,9 +34,9 @@ export default class TaskService {
     }
   }
 
-  static async delete(id) {
+  async delete(id) {
     try {
-      await api.delete(`tasks/${id}`);
+      await this.api.delete(`tasks/${id}`);
     } catch (error) {
       throw new Error(error);
     }
