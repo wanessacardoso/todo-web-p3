@@ -7,7 +7,8 @@ const AuthProvider = ({ children }) => {
   const api = useAxios();
 
   const [data, setData] = useState(() => {
-    const user = localStorage.getItem("@taskapp:user");
+    const userTxt = localStorage.getItem("@taskapp:user");
+    const user = JSON.parse(userTxt);
     const token = localStorage.getItem("@taskapp:token");
     if (user && token) {
       return { user, token };
@@ -19,11 +20,10 @@ const AuthProvider = ({ children }) => {
     try {
       const { data } = await api.post("users/login", { email, password });
       const { user, token } = data;
-      console.log(data);
-      localStorage.setItem("@taskapp:user", user);
+      localStorage.setItem("@taskapp:user", JSON.stringify(user));
       localStorage.setItem("@taskapp:token", token);
       api.defaults.headers.Authorization = token;
-      setData({ user, token });
+      setData(data);
     } catch (error) {
       console.log(error);
       throw new Error("Falha na autenticação");

@@ -11,12 +11,16 @@
     flex: 1;
   }
   button {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 4px;
     float: right;
     background-color: transparent;
     cursor: pointer;
     border: 1px solid #eef;
     color: #334;
-    font-size: 18px;
+    font-size: 16px;
     border-radius: 4px;
     padding: 2px 8px;
     transition: background-color 0.3s ease-in-out;
@@ -24,7 +28,7 @@
       background-color: #eef;
     }
   }
-  span + span {
-    width: 60px;
+  span {
+    min-width: 60px;
   }
 }

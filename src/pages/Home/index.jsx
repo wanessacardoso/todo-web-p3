@@ -3,9 +3,10 @@ import { TaskForm } from "../../components/TaskForm";
 import TaskList from "../../components/TaskList";
 import Template from "../../containers/Template";
 import { useAuth } from "../../hooks/useAuth";
+import { GoSignOut } from "react-icons/go";
 
 const Home = () => {
-  const { signOut } = useAuth();
+  const { signOut, user } = useAuth();
   const navigate = useNavigate();
 
   const handleLogout = async () => {
@@ -17,7 +18,7 @@ const Home = () => {
       title="My Todo App"
       sideButton={
         <button type="button" onClick={handleLogout}>
-          Logout
+          {user.name} <GoSignOut />
         </button>
       }
     >
