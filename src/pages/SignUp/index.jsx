@@ -22,7 +22,7 @@ const SignUp = () => {
       password: passwordInputRef.current.value,
       confirmation: passwordConfirmationInputRef.current.value,
     };
-    addUsers(users);
+    
   };
 
   return (
