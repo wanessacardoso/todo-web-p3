@@ -13,13 +13,16 @@ const SignUp = () => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    console.table({
+
+    
+    const users = {
       name: nameInputRef.current.value,
       age: ageInputRef.current.value,
       email: emailInputRef.current.value,
       password: passwordInputRef.current.value,
       confirmation: passwordConfirmationInputRef.current.value,
-    });
+    };
+    addUsers(users);
   };
 
   return (

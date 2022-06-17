@@ -1,11 +1,11 @@
 import { createContext, useCallback, useState } from "react";
-import Swal from "sweetalert";
+import Swal from "sweetalert2";
 import { useAxios } from "../hooks/useAxios";
 import UserService from "../services/user.service";
 
 export const UsersContext = createContext({});
 export const UserProvider = ({ children }) => {
-    const [users, setUsers] = useState([]);
+    const [users, addUsers] = useState([]);
 }
     const axiosInstance = useAxios();
     
@@ -14,12 +14,17 @@ export const UserProvider = ({ children }) => {
             const userCopy = [...users];
               try {
                 const userService = new UserService(axiosInstance);
-              const newUser = await userService.add(user);
+                const newUser = await userService.add(user);
                 userCopy.push(newUser);
                 setUsers(userCopy);
+                Swal.fire({
+                    html:"Usuário cadastrado com sucesso!"
+                })
         } catch (error) {
-            alert("não foi possivel adicionar o usuário"); 
+            Swal.fire({
+                html:"Não foi possivel adicionar o usuario" 
         }
+            )};
     }, 
     [axiosInstance, users]
 }
